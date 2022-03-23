@@ -1,0 +1,7 @@
+ alter table marksheet add grade varchar(10);
+ alter table marksheet drop column sub2;
+ alter table Student1 add constraint pp check(length(phone_no)=10);
+ select s_name from Student1 where s_address='pattom';
+ select sum(sub1+sub3) from marksheet where roll_no=2;
+ select s_name from Student1 where roll_no=3;
+ select phone_no from Student1 where s_name='sachin';
