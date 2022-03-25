@@ -1,0 +1,121 @@
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.3.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from bus;
+
+    BUS_NO SOURCE               DESTINATION          COUCH_TYPE
+---------- -------------------- -------------------- --------------------
+       100 thrissure            varkala              a/c
+       201 tvm                  kanyakumari          sleeper
+       150 malappuram           kochi                sleeper
+       300 kollam               eranakulam           a/c
+
+SQL> desc reservation;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                             NUMBER(38)
+ JOURNEY_DATE                                       DATE
+ NO_OF_SEATS                                        NUMBER(38)
+ ADDRESS                                            VARCHAR2(20)
+ CONTACT_NO                                         NUMBER(38)
+ BUS_NO                                             NUMBER(38)
+ SEAT_NO                                            NUMBER(38)
+
+SQL> desc ticket;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TICKET_NO                                 NOT NULL NUMBER(38)
+ JOURNEY_DATE                                       DATE
+ AGE                                                NUMBER(38)
+ SEX                                                VARCHAR2(10)
+ SOURCE                                             VARCHAR2(20)
+ DESTINATION                                        VARCHAR2(20)
+ DEP_TIME                                           VARCHAR2(10)
+ BUS_NO                                             NUMBER(38)
+
+SQL> desc passenger;
+ERROR:
+ORA-04043: object passenger does not exist
+
+
+SQL> desc pass;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                    NOT NULL NUMBER(38)
+ TICKET_NO                                          NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ AGE                                                NUMBER(38)
+ SEX                                                VARCHAR2(10)
+ CONTACT_NO                                         NUMBER(38)
+
+SQL> desc canc;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                    NOT NULL NUMBER(38)
+ JOURNEY_DATE                                       DATE
+ SEAT_NO                                            NUMBER(38)
+ CONTACT_NO                                         NUMBER(38)
+
+SQL> insert int reservation values(1,'9.6.19',50,'abc',3683893156,100,20);
+insert int reservation values(1,'9.6.19',50,'abc',3683893156,100,20)
+       *
+ERROR at line 1:
+ORA-00925: missing INTO keyword
+
+
+SQL> insert into reservation values(1,'9.6.19',50,'abc',3765893467,100,20);
+insert into reservation values(1,'9.6.19',50,'abc',3765893467,100,20)
+                                 *
+ERROR at line 1:
+ORA-01843: not a valid month
+
+
+SQL> alter table canc add froeign key(PNR_NO)references pass(PNR_NO);
+alter table canc add froeign key(PNR_NO)references pass(PNR_NO)
+                                 *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table canc add foreign key(PNR_NO)references pass(PNR_NO);
+
+Table altered.
+
+SQL> desc canc;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                    NOT NULL NUMBER(38)
+ JOURNEY_DATE                                       DATE
+ SEAT_NO                                            NUMBER(38)
+ CONTACT_NO                                         NUMBER(38)
+
+SQL> insert into values(10,'03-JAN_20',30,'male','thrissure','varkala','09:59:32',101);
+insert into values(10,'03-JAN_20',30,'male','thrissure','varkala','09:59:32',101)
+            *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> insert into ticket values(10,'03-JAN-20',30,'male','thrissure','varkala','09:59:32',101);
+insert into ticket values(10,'03-JAN-20',30,'male','thrissure','varkala','09:59:32',101)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (SCOTT.SYS_C005470) violated - parent key not
+found
+
+
+SQL>  insert into ticket values(10,'03-JAN-20',30,'male','thrissure','varkala','09:59:32',100);
+
+1 row created.
+
+SQL> insert into ticket values(11,'02-FEB-19',15,'female','tvm','kanyakumari','07:59:12',201);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
