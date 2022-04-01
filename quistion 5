@@ -1,0 +1,4 @@
+a: select name,ticket_no from pass;
+b:select name from pass where sex='male';
+c:select name from pass where age between 20 and 40;
+h:select count(sex)from pass where sex='female';
