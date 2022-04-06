@@ -1,5 +1,7 @@
 a: select name,ticket_no from pass;
 b:select name from pass where sex='male';
 c:select name from pass where age between 20 and 40;
+g:select * from canc,pass where pass.pnr_no=canc.pnr_no and journey_date='10-oct-19';
 h:select count(sex)from pass where sex='female';
 i:select pnr_no,name from pass order by name asc;
+j:select ticket_no from pass where name like 's%h';
