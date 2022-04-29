@@ -1,0 +1,241 @@
+SQL*Plus: Release 10.2.0.3.0 - Production on Fri Apr 29 14:17:08 2022
+
+Copyright (c) 1982, 2006, Oracle.  All Rights Reserved.
+
+Enter password: *********
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.3.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> select * from student3;
+
+   STUD_ID NAME       CLASS    CITY       TOTAL_MARKS PERCENTAGE    DEPT_ID
+---------- ---------- -------- ---------- ----------- ---------- ----------
+         1 rehna      mca      tvm                 80 81                101
+         3 vinitha    b_tech   varkala             90 90                104
+         2 renjith    mba      kollam              70 70                102
+         4 athira     m_tech   thrissure           84 85                102
+
+SQL> select * from student3 order by dept_id;
+
+   STUD_ID NAME       CLASS    CITY       TOTAL_MARKS PERCENTAGE    DEPT_ID
+---------- ---------- -------- ---------- ----------- ---------- ----------
+         1 rehna      mca      tvm                 80 81                101
+         4 athira     m_tech   thrissure           84 85                102
+         2 renjith    mba      kollam              70 70                102
+         3 vinitha    b_tech   varkala             90 90                104
+
+SQL> select name from employee3;
+select name from employee3
+                 *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from employee3
+  2  ;
+select * from employee3
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>  select * from employee3;
+ select * from employee3
+               *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from employee3;
+select * from employee3
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPID                                     NOT NULL VARCHAR2(20)
+ EMPNAME                                            VARCHAR2(28)
+ AGE                                                NUMBER(38)
+ SALARY                                             NUMBER(38)
+ JOB_TYPE                                           VARCHAR2(20)
+ DEPARTMENT                                         VARCHAR2(28)
+
+SQL> desc empployee3;
+ERROR:
+ORA-04043: object empployee3 does not exist
+
+
+SQL> create table employee3(emp_id int,name varchar(20),cmp_id int references company(cmp_id),design
+ation varchar(20),salary int,city varchar(20));
+create table employee3(emp_id int,name varchar(20),cmp_id int references company(cmp_id),designation
+                                                                                 *
+ERROR at line 1:
+ORA-00904: "CMP_ID": invalid identifier
+
+
+SQL> select * from company;
+
+no rows selected
+
+SQL> desc company3;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COMP_ID                                   NOT NULL NUMBER(38)
+ NAME                                      NOT NULL VARCHAR2(20)
+ CITY                                               VARCHAR2(20)
+ NO_OF_EMPLOYEES                                    NUMBER(38)
+
+SQL> select * from company3;
+
+   COMP_ID NAME                 CITY                 NO_OF_EMPLOYEES
+---------- -------------------- -------------------- ---------------
+         1 abc                  eranakulam                        60
+         2 ycxfk                kochi                             68
+         3 uiop                 kottayam                          70
+
+SQL>  create table employee3(emp_id int,name varchar(20),cmp_id int references company3(comp_id),des
+ignation varchar(20),salary int,city varchar(20));
+
+Table created.
+
+SQL>  select name from employee3;
+
+no rows selected
+
+SQL> insert into employee3(34,'raju',1,'sweeper;,5000,'tvm');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into employee3(34,'raju',1,'sweeper',5000,'tvm');
+insert into employee3(34,'raju',1,'sweeper',5000,'tvm')
+                      *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL>  insert into employee3 values(34,'raju',1,'sweeper',5000,'tvm',);
+ insert into employee3 values(34,'raju',1,'sweeper',5000,'tvm',)
+                                                               *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> insert into employee3 values(34,'raju',1,'sweeper',5000,'tvm');
+
+1 row created.
+
+SQL> insert into employee3 values(56,'ramu',2,'manager',400000,'chaka');
+
+1 row created.
+
+SQL> insert int employee3 values(78,'kesu',3,'clerk',15000,'kollam');
+insert int employee3 values(78,'kesu',3,'clerk',15000,'kollam')
+       *
+ERROR at line 1:
+ORA-00925: missing INTO keyword
+
+
+SQL> insert into employee3 values(78,'kesu',3,'clerk'15000,'kollam');
+insert into employee3 values(78,'kesu',3,'clerk'15000,'kollam')
+                                                *
+ERROR at line 1:
+ORA-00917: missing comma
+
+
+SQL> 
+SQL>  insert into employee3 values(78,'kesu',3,'clerk',15000,'kollam');
+
+1 row created.
+
+SQL> select * from employee3;
+
+    EMP_ID NAME                     CMP_ID DESIGNATION              SALARY
+---------- -------------------- ---------- -------------------- ----------
+CITY
+--------------------
+        34 raju                          1 sweeper                    5000
+tvm
+
+        56 ramu                          2 manager                  400000
+chaka
+
+        78 kesu                          3 clerk                     15000
+kollam
+
+
+SQL> select name from employee3;
+
+NAME
+--------------------
+raju
+ramu
+kesu
+
+SQL> select name from staff3 where salary>20000;
+
+no rows selected
+
+SQL> select * from staff3;
+
+  STAFF_ID NAME                   DEPT_ID DESIGNATION              SALARY
+---------- ------------------- ---------- -------------------- ----------
+CITY
+--------------------
+        11 rama                       101 sweeper                    2500
+tvm
+
+        12 radha                      102 manager                    2800
+kollam
+
+        13 rayan                      103 sweeper                    3000
+varkala
+
+
+SQL> select * from staff3 where salary>20000;
+
+no rows selected
+
+SQL>  select * from staff3 where salary>2000;
+
+  STAFF_ID NAME                   DEPT_ID DESIGNATION              SALARY
+---------- ------------------- ---------- -------------------- ----------
+CITY
+--------------------
+        11 rama                       101 sweeper                    2500
+tvm
+
+        12 radha                      102 manager                    2800
+kollam
+
+        13 rayan                      103 sweeper                    3000
+varkala
+
+
+SQL> select * from from student3 where percentage between 80 and 90;
+select * from from student3 where percentage between 80 and 90
+              *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> 
+
+SQL> select * from student3 where percentage between 80 and 90;
+
+   STUD_ID NAME       CLASS    CITY       TOTAL_MARKS PERCENTAGE    DEPT_ID
+---------- ---------- -------- ---------- ----------- ---------- ----------
+         1 rehna      mca      tvm                 80 81                101
+         3 vinitha    b_tech   varkala             90 90                104
+         4 athira     m_tech   thrissure           84 85                102
+
+SQL> commit;
+
+Commit complete.
+
+SQL> 
